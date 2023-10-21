@@ -80,15 +80,14 @@
 
 import streamlit as st
 import plotly.express as px
-from backend import noise_sensor_1, noise_sensor_2, noise_sensor_3, noise_sensor_4, noise_sensor_5, noise_sensor_6
+from backend import noise_sensor_1, noise_sensor_2, noise_sensor_3, noise_sensor_4, noise_sensor_5, noise_sensor_6,noise_data_insights
 import pandas as pd
 import time
 
-primaryColor = "#E694FF"
-backgroundColor = "#00172B"
-secondaryBackgroundColor = "#0083B8"
-textColor = "#C6CDD4"
-font = "sans-serif"
+max=0
+mean=0
+sensor="NO DATA AVAILABLE"
+
 
 st.set_page_config(
     layout="wide",
@@ -98,6 +97,26 @@ st.set_page_config(
 
 # Title of the page
 st.title("Noise Pollution Detector and Alert System using Image Recognition.")
+
+#Information Box and Camera Box
+
+col_1 , col_2 = st.columns([7,3])
+with col_1 :
+    st.subheader("INFORMATIONs")
+    max_container = st.empty()
+    mean_container = st.empty()
+    sensor_container = st.empty()
+with col_2 :
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
 
 # Create Plotly figures (initialize with initial data)
 col1 , col2 = st.columns([1,1])
@@ -135,6 +154,19 @@ with col6 :
 
 # Periodically update the data and charts
 while True:
+    #Fetch the new information data
+    max, mean, sensor = noise_data_insights()
+    # st.write(max)
+    # st.write(mean)
+    # st.write(sensor)
+    # Update the information container
+    with max_container.container():
+        st.write(f"LAST MAXIMUM LOUDNESS RECORDED = {max}")
+    with mean_container.container():
+        st.write(f"MEAN OF THE MAXIMUM LOUDNESS OF ALL SENSORS  = {mean}")
+    with sensor_container.container():
+        st.write(f"SENSOR WITH THE MAXIMUM LOUDNESS = {sensor}")
+
     # Fetch new data for each sensor
     df_1 = noise_sensor_1()
     df_2 = noise_sensor_2()
