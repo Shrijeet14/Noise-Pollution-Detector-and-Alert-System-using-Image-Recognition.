@@ -1,6 +1,7 @@
 import random
 import pandas as pd
 
+
 max_data=[0,0,0,0,0,0]
 
 sensor_data1=[0,0,0,0,0]
@@ -28,7 +29,7 @@ def noise_sensor_2():
     return df
 
 def noise_sensor_3():
-    data = random.randint(40, 157)
+    data = random.randint(40, 500)
     if(data > max_data[2]):
         max_data[2]=data
     sensor_data3.pop(0)
@@ -86,5 +87,7 @@ def noise_data_insights():
         sensor_info="SENSOR_5"
     elif(max_index==6):
         sensor_info="SENSOR_6"
-    print(f"[{max_data},{mean_value}]")
+
+    max_data[max_index]=0
     return  max_value , mean_value ,sensor_info
+
